@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react",
+    "noImplicitAny": true,
+    "strict": false,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "typeRoots": ["types"],
+    "lib": [                                  /* Specify library files to be included in the compilation. */
+      "dom",
+      "es2015"
+    ],
+    "types": [
+      "jest"
+    ]
+  }
+}
