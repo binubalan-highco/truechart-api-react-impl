@@ -1,9 +1,14 @@
 //import semantic-ui
 //@import '~@highcoordination/semantic-ui/semantic/dist/semantic.min.css';
-
+@import '~semantic-ui-css/semantic.min.css';
 .base-container{
   padding: 16px;
 }
+
+body{
+  padding: 16px;
+}
+
 .truechartcore {
   margin-top: 100px;
   margin-left: 40px;
@@ -26,5 +31,42 @@
 
 .DIBase{
   position: absolute;
+}
 
+.file-import-container{
+  background: #eee;
+  width: 500px;
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 16px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  position: relative;
+
+  display: table-cell;
+}
+.file-import-container > input{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  opacity: 0.0;
+  z-index: 10;
+  cursor: pointer;
+}
+.file-import-container > div{
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
+  color: #777;
+}
+
+.contain{
+  overflow-x: auto;
+}
+.halfCard{
+  width: 50% !important;
 }

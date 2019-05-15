@@ -98,7 +98,13 @@ export class TrueChartModule extends React.Component<Props, InstanceState>{
         });
 
         let vId = this.data.listMeasures()[0].id;
-        this.data.changeData({[vId]:nextState.measure});
+
+        try{
+            this.data.changeData({[vId]:nextState.measure});
+        }
+        catch (e) {
+            alert(e.toString());
+        }
 
     }
 

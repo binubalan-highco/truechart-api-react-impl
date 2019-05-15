@@ -24,10 +24,13 @@
   },
   "homepage": "https://github.com/binubalan-highco/truechart-api-react-impl#readme",
   "dependencies": {
+    "@types/semantic-ui": "^2.2.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.0",
-    "semantic-ui-react": "^0.87.1"
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.87.1",
+    "xlsx": "^0.14.3"
   },
   "devDependencies": {
     "@types/jest": "^24.0.12",
