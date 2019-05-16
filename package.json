@@ -7,7 +7,9 @@
     "start": "webpack-dev-server",
     "build": "node_modules/.bin/webpack",
     "test": "jest",
-    "test:dev": "jest --watch"
+    "test:dev": "jest --watch",
+    "lint": "tslint -c tslint.json src/**/*.{ts,tsx}",
+    "tslint": "npm run lint -- -p \".\" -t stylish"
   },
   "repository": {
     "type": "git",
@@ -48,6 +50,10 @@
     "style-loader": "^0.23.1",
     "ts-jest": "^24.0.2",
     "ts-loader": "^6.0.0",
+    "tslib": "^1.9.3",
+    "tslint": "^5.16.0",
+    "tslint-react": "^4.0.0",
+    "tslint-webpack-plugin": "^2.0.4",
     "typescript": "^3.4.5",
     "url-loader": "^1.1.2",
     "webpack": "^4.31.0",

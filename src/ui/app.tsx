@@ -1,75 +1,102 @@
-import * as React from "react";
+import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {TrueChartModule} from './TrueChartModule';
+import {Dimmer, Loader} from 'semantic-ui-react';
 import TChartType = TrueChartAPI.TChartType;
-import {FileImportModule} from "./FileImportModule";
-import {Dimmer, Loader} from "semantic-ui-react";
+import {FileImportModule} from './FileImportModule';
+import {TrueChartModule} from './TrueChartModule';
 
-type Props = {
-    dimensionName: string,
-    measureName: string
+/**
+ * react component App state
+ * @typedef {Object} AppState
+ * @property {string} title
+ * @property {TChartType} charType
+ * @property {string[]} dimension
+ * @property {number[]} measure
+ * @property {boolean} hasImported
+ * @property {boolean} progress
+ */
+interface IAppState {
+    charType: TChartType;
+    dimensions: string[];
+    hasImported: boolean;
+    measures: number[];
+    progress: boolean;
+    title: string;
 }
 
+/**
+ * React component - App class
+ * @extends React.Component
+ */
+export class App extends React.Component<{}, IAppState> {
 
-type AppState = {
-    title:string,
-    charType:TChartType,
-    dimensions:string[],
-    measures:number[],
-    hasImported:boolean,
-    progress:boolean
-}
-
-export class App extends React.Component<{}, AppState>{
-    public static init(element: HTMLElement){
-        ReactDOM.render(<App />, element);
+    /**
+     * static init method to render react to html element
+     * @param element
+     */
+    public static init(element: HTMLElement) {
+        ReactDOM.render(<App/>, element);
     }
 
-    constructor(props:{}){
+    /**
+     * constructor
+     * @param props
+     */
+    constructor(props: {}) {
         super(props);
         this.state = {
-            title:"React app 1",
-            charType:"structure",
-            dimensions:[],
-            measures:[],
-            hasImported:false,
-            progress:false
+            charType: 'structure',
+            dimensions: [],
+            hasImported: false,
+            measures: [],
+            progress: false,
+            title: 'React app 1',
         };
 
     }
 
+    /**
+     * render method of App react component
+     * @return
+     */
     public render() {
-        const dimen1 = ["Munich", "Kochi", "Mumbai", "Delhi", "Berlin"];
-        const measure1 = [5500, 2600, 7000, 1200, 8000];
         return (
             <div className="app">
                 <h2>trueChart - Excel file import BI</h2>
-                    {this.state.progress?
-                        <Dimmer active inverted>
-                            <Loader inverted>Loading</Loader>
-                        </Dimmer>
-                        :null
-                    }
-                    {!this.state.hasImported?
-                        <FileImportModule onProgress={(status)=>{
-                            this.setState({
-                                progress:status
-                            })
-                        }} onData={(d:string[], m:number[])=>{
-                            this.setState({
-                                dimensions:d,
-                                measures:m,
-                                hasImported:true
-                            })
-                            return{};
+                {
+                    this.state.progress ?
+                    <Dimmer active={true} inverted={true}>
+                        <Loader inverted={true}>Loading</Loader>
+                    </Dimmer>
+                    : null
+                }
+                { !this.state.hasImported ?
+                    <FileImportModule
+                        onProgress={(state: boolean) =>{
+                                this.setState({
+                                    progress: state,
+                                });
+                                return {};
+                            }
                         }
-                        }/>
-                        :
-                        <TrueChartModule dimensionName="Dimension" measureName="Measure" dimensions={this.state.dimensions} measure={this.state.measures} chartType={this.state.charType}/>
-                    }
-
-
-                {/*<TrueChartModule dimensionName="Dimension" measureName="Measure" dimensions={dimen1} measure={measure1} chartType={this.state.charType}/>*/}
+                        onData={(d: string[], m: number[])=>{
+                                this.setState({
+                                    dimensions: d,
+                                    hasImported: true,
+                                    measures: m,
+                                });
+                                return {};
+                        }}
+                    />
+                    :
+                    <TrueChartModule
+                        dimensionName="Dimension"
+                        measureName="Measure"
+                        dimensions={this.state.dimensions}
+                        measure={this.state.measures}
+                        chartType={this.state.charType}
+                    />
+                }
             </div>
         );
     }

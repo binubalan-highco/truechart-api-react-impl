@@ -1,25 +1,31 @@
-const path = require('path');
+const TslintWebpackPlugin = require("tslint-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
     mode: 'development',
     entry: {
         app: './src/index.ts'
     },
-    resolve:{
+    resolve: {
         extensions: ['.ts', '.tsx', '.html', '.js', '.json']
     },
-    output:{
+    output: {
         path: path.resolve(__dirname + '/dist'),
         filename: "app.js"
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: "./html/index.html"
+        }),
+        new TslintWebpackPlugin({
+            files:[
+                'src/**/*.{ts,tsx}'
+            ]
         })
     ],
     module: {
-        rules:  [
+        rules: [
             {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
