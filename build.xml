@@ -19,14 +19,14 @@
         </sequential>
     </macrodef>
 
-    <macrodef name="jenkins-build">
+    <target name="jenkins-build">
         <sequential>
             <antcall target="npm-install"/>
             <antcall target="build"/>
             <antcall target="run-tests"/>
             <antcall target="run-lint"/>
         </sequential>
-    </macrodef>
+    </target>
 
     <macrodef name="npm-publish" description="publishes the npm package">
         <attribute name="version" default="${version-full}"/>
