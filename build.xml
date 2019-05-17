@@ -79,14 +79,14 @@
         </sequential>
     </target>
 
-    <target name="run-tests" description="Runs (unit) tests">
-        <!--do not stop the build, because one browser (IE) do not support headless execution... -->
-        <exec executable="${npm}" failonerror="true">
-            <arg value="test"/>
-            <arg value="--"/>
-            <arg value="--collectCoverage"/>
-        </exec>
-    </target>
+<!--    <target name="run-tests" description="Runs (unit) tests">-->
+<!--        &lt;!&ndash;do not stop the build, because one browser (IE) do not support headless execution... &ndash;&gt;-->
+<!--        <exec executable="${npm}" failonerror="true">-->
+<!--            <arg value="test"/>-->
+<!--            <arg value="&#45;&#45;"/>-->
+<!--            <arg value="&#45;&#45;collectCoverage"/>-->
+<!--        </exec>-->
+<!--    </target>-->
 
     <target name="npm-install" description="Resolve all npm dependencies.">
         <exec executable="${npm}" failonerror="true">
