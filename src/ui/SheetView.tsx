@@ -151,18 +151,18 @@ export class SheetView extends React.Component<SVProps, SVState> {
                                         icon="right arrow"
                                         labelPosition="right"
                                         onClick={(e) => {
-                                                //accumulate those selected columns
-                                                const dimensionData = this.state.sheetObject.map((row: any) => {
-                                                    return row['' + this.state.selectedDimensionKey];
-                                                });
+                                            //accumulate those selected columns
+                                            const dimensionData = this.state.sheetObject.map((row: any) => {
+                                                return row['' + this.state.selectedDimensionKey];
+                                            });
 
-                                                const measureData = this.state.sheetObject.map((row: any) => {
-                                                    const mes = row['' + this.state.selectedMeasurekey];
-                                                    return (!isNaN(mes) ? mes : 0);
-                                                });
+                                            const measureData = this.state.sheetObject.map((row: any) => {
+                                                const mes = row['' + this.state.selectedMeasurekey];
+                                                return (!isNaN(mes) ? mes : 0);
+                                            });
 
-                                                this.props.onData(dimensionData, measureData);
-                                            }
+                                            this.props.onData(dimensionData, measureData);
+                                        }
                                         }
                                     />
                                 </Grid.Column>

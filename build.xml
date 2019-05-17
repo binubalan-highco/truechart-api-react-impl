@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="truechart-api-react-impl">
+    <property file="./ant.properties"/>
+    <property file="version.properties" prefix="properties.version"/> <!-- properties: major, minor, patch -->
+    <property name="version-full" value="${properties.version.major}.${properties.version.minor}.${properties.version.patch}"/>
+    <property name="publish_dir" value="publish"/>
+    <property name="dist_dir" value="dist"/>
+    <property name="src_dir" value="src"/>
+
+    <macrodef name="set-npm-registry" description="set the npm registry verdaccio server">
+        <sequential>
+            <echo file=".npmrc" append="false">//localhost:4873/:_authToken="7NUztBUb8D03090ToA7ysg9G9Ndk1ukBHJKDprMvuuI="</echo>
+            <exec executable="${npm}">
+                <arg value="config"/>
+                <arg value="set"/>
+                <arg value="truechart-api-react-impl:registry"/>
+                <arg value="http://localhost:4873/"/>
+            </exec>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="jenkins-build">
+        <sequential>
+            <antcall target="npm-install"/>
+            <antcall target="build"/>
+            <antcall target="run-tests"/>
+            <antcall target="run-lint"/>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="npm-publish" description="publishes the npm package">
+        <attribute name="version" default="${version-full}"/>
+        <sequential>
+            <delete dir="${publish_dir}"/>
+            <mkdir dir="${publish_dir}"/>
+            <copy todir="${publish_dir}">
+                <fileset dir=".">
+                    <exclude name=".idea/"/>
+                    <exclude name=".vscode/"/>
+                    <exclude name="${publish_dir}/"/>
+                    <exclude name="node_modules/"/>
+                    <exclude name="reports/"/>
+                </fileset>
+            </copy>
+            <exec executable="${npm}" dir="${publish_dir}">
+                <arg value="version"/>
+                <arg value="@{version}"/>
+                <arg value="--no-git-tag"/>
+            </exec>
+            <exec executable="${npm}" dir="${publish_dir}" failonerror="true">
+                <arg value="publish"/>
+            </exec>
+        </sequential>
+    </macrodef>
+
+
+    <target name="build" description="Builds the module">
+        <delete dir="${dist_dir}"/>
+        <mkdir dir="${dist_dir}"/>
+        <copy todir="${dist_dir}">
+            <fileset dir="${src_dir}">
+                <exclude name="**/*.ts"/>
+                <exclude name="**/*.tsx"/>
+            </fileset>
+        </copy>
+        <exec executable="${npm}" failonerror="true">
+            <arg value="run"/>
+            <arg value="build"/>
+        </exec>
+    </target>
+
+    <target name="run-lint" description="Run eslint and tslint for the whole project">
+        <mkdir dir="reports"/>
+        <sequential>
+            <exec executable="${npm}" failonerror="true">
+                <arg value="run"/>
+                <arg value="lint"/>
+            </exec>
+        </sequential>
+    </target>
+
+    <target name="run-tests" description="Runs (unit) tests">
+        <!--do not stop the build, because one browser (IE) do not support headless execution... -->
+        <exec executable="${npm}" failonerror="true">
+            <arg value="test"/>
+            <arg value="--"/>
+            <arg value="--collectCoverage"/>
+        </exec>
+    </target>
+
+    <target name="npm-install" description="Resolve all npm dependencies.">
+        <exec executable="${npm}" failonerror="true">
+            <arg value="install"/>
+        </exec>
+    </target>
+
+    <target name="npm-publish-local" description="Publishes a beta version of the module">
+        <tstamp>
+            <format property="time.stamp" pattern="yyyyMMddHHmmss"/>
+        </tstamp>
+        <property name="version" value="${version-full}-beta-${time.stamp}"/>
+        <npm-publish version="${version}"/>
+    </target>
+
+    <target name="M70.0-components_development">
+        <jenkins-build/>
+        <set-npm-registry/>
+        <antcall target="npm-publish-local"/>
+    </target>
+
+    <target name="M74.0-components_master">
+        <jenkins-build/>
+        <set-npm-registry/>
+        <npm-publish/>
+    </target>
+</project>
