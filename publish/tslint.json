@@ -1,0 +1,79 @@
+{
+  "defaultSeverity": "error",
+  "linterOptions": {
+    "exclude": ["node_modules/**"]
+  },
+  "extends": [
+    "tslint:recommended",
+    "tslint-react"
+  ],
+  "rules": {
+    "align": [
+      true,
+      "elements",
+      "members",
+      "statements"
+    ],
+    "eofline": false,
+    "indent": false,
+    "interface-over-type-literal": false,
+    "linebreak-style": [
+      true,
+      "CRLF"
+    ],
+    "max-line-length": [
+      true,
+      160
+    ],
+    "member-access": false,
+    "no-bitwise": false,
+    "no-conditional-assignment": false,
+    "no-namespace": false,
+    "no-trailing-whitespace": true,
+    "no-unused-expression": false,
+    "object-literal-shorthand": false,
+    "object-literal-sort-keys": false,
+    "one-line": [
+      true,
+      "check-catch",
+      "check-finally",
+      "check-else"
+    ],
+    "one-variable-per-declaration": false,
+    "ordered-imports": false,
+    "quotemark": [true, "single","jsx-double"],
+    "radix": false,
+    "semicolon": [true,"always"],
+    "switch-default": false,
+    "trailing-comma": [
+      true,
+      {
+        "esSpecCompliant": true
+      }
+    ],
+    "variable-name": false,
+    "whitespace": false,
+    "array-type": false,
+    "ban-types": false,
+    "comment-format": false,
+    "forin": false,
+    "jsdoc-format": false,
+    "max-classes-per-file": false,
+    "member-ordering": false,
+    "no-angle-bracket-type-assertion": false,
+    "no-any": false,
+    "no-console": false,
+    "no-empty-interface": false,
+    "object-literal-key-quotes": false,
+    "prefer-const": false,
+    "prefer-for-of": false,
+    "jsx-no-multiline-js": false,
+    "jsx-no-lambda": false,
+    "no-implicit-dependencies": false,
+    "no-submodule-imports": false,
+    "jsx-boolean-value": false,
+    "no-this-assignment": false,
+    "no-object-literal-type-assertion": false
+  },
+  "rulesDirectory": []
+}
