@@ -23,7 +23,6 @@
         <sequential>
             <antcall target="npm-install"/>
             <antcall target="build"/>
-            <antcall target="run-tests"/>
             <antcall target="run-lint"/>
         </sequential>
     </target>
@@ -103,13 +102,11 @@
     </target>
 
     <target name="M70.0-components_development">
-        <jenkins-build/>
         <set-npm-registry/>
         <antcall target="npm-publish-local"/>
     </target>
 
     <target name="M74.0-components_master">
-        <jenkins-build/>
         <set-npm-registry/>
         <npm-publish/>
     </target>
